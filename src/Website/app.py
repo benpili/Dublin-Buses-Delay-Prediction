@@ -1,5 +1,6 @@
-from flask import Flask, render_template, send_from_directory, jsonify, send_from_directory, request, redirect, flash, url_for
+from flask import Flask, render_template, send_from_directory, jsonify
 import os
+from flask import send_from_directory, request, redirect, flash, url_for
 from uuid import uuid1
 import json
 from base64 import b64encode, b64decode, standard_b64encode
