@@ -1,4 +1,4 @@
-# Final Project 094290-Dublin Buses Delay Prediction 
+# Dublin Buses Delay Prediction 
  Final Project of the Data Mangment and Gathering Lab 094290
  Ben Filiarsky & Itzik Koyfman
  <p align='center'>
