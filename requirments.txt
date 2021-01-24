@@ -4,3 +4,5 @@ folium==0.12.1
 pandas==1.1.0
 networkx==2.5
 flask-ngrok==0.0.25
+docker==19.03.13
+Apache Spark==2.4.5
