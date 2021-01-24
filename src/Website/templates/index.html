@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<title>Final Project</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open Sans">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+    h1, h2, h3, h4, h5, h6 {
+        font-family: "Oswald"
+    }
+
+    body {
+        font-family: "Open Sans"
+    }
+</style>
+
+<body class="w3-light-grey">
+<!-- Hidden Sidebar (reveals when clicked on menu icon)-->
+<nav class="w3-sidebar w3-black w3-animate-right w3-xlarge"
+     style="display:none;padding-top:150px;right:0;z-index:2;font-family: Oswald" id="mySidebar">
+    <a href="javascript:void(0)" onclick="closeNav()" class="w3-button w3-black w3-xxxlarge w3-display-topright"
+       style="padding:0 12px;">
+        <i class="fa fa-remove"></i>
+    </a>
+    <div class="w3-bar-block w3-center">
+        <a href="/" class="w3-bar-item w3-button w3-text-white w3-hover-black" onclick="closeNav()">AfiMilk</a>
+        <a href="#" class="w3-bar-item w3-button w3-text-white w3-hover-black" onclick="closeNav()">Home</a>
+        <a href="#DelayPredictions" class="w3-bar-item w3-button w3-text-white w3-hover-black" onclick="closeNav()">Delay
+            Predictions</a>
+        <a href="#PlanYourRide" class="w3-bar-item w3-button w3-text-white w3-hover-black" onclick="closeNav()">Plan
+            Your Ride</a>
+        <a href="#UploadData" class="w3-bar-item w3-button w3-text-white w3-hover-black" onclick="closeNav()">Upload
+            Data</a>
+    </div>
+</nav>
+
+
+<div class="w3-content w3-white" style="max-width:1600px">
+
+    <!-- Menu icon to open sidebar -->
+    <span class="w3-button w3-top w3-white w3-xxlarge w3-text-black w3-hover-text-gray" style="width: auto;right:0;"
+          onclick="openNav()"><i class="fa fa-bars"></i></span>
+    <!-- w3-content defines a container for fixed size centered content,
+    and is wrapped around the whole page content, except for the footer in this example -->
+
+    <!-- Header -->
+    <header class="w3-container w3-center w3-padding-24 w3-white">
+        <h1 class="w3-xxxlarge"><b>Dublin Roads</b></h1>
+        <h6>Data Managment and Gathering Lab Final Project <span class="w3-tag">Ben & Itzik</span></h6>
+    </header>
+
+    <!-- Image header -->
+    <header class="w3-display-container" id="home">
+        <img class="w3-image" src="{{url_for('static', filename='img/dublin-skyline.jpg')}}" alt="Fashion Blog"
+             width="1600" height="1060">
+        <div class="w3-display-left w3-padding-large" style="top: 25%">
+            <h1 class="w3-jumbo w3-text-white w3-hide-small">Bus Me Home Where I Belong</h1>
+            </a>
+            <h6>
+                <button class="w3-button w3-white w3-padding-large w3-large w3-opacity w3-hover-opacity-off"
+                        onclick=window.open('https://www.instagram.com/benpili/','_blank')>Ben's Instagram
+                </button>
+            </h6>
+        </div>
+    </header>
+
+    <p class="w3-center" id="DelayPredictions"><b style="font-size: xxx-large; font-family: Oswald">Delay
+        Predictions</b></p>
+    <div class="w3-center" style="height: 750px">
+        <iframe src="http://da2020w-0009.eastus.cloudapp.azure.com:5601/app/dashboards#/view/382aa190-59b6-11eb-89fd-4dca407b8f8f?embed=true&_g=(filters%3A!()%2CrefreshInterval%3A(pause%3A!t%2Cvalue%3A0)%2Ctime%3A(from%3Anow-15m%2Cto%3Anow))&show-time-filter=true"
+                height="100%" width="97%"></iframe>
+    </div>
+    <p class="w3-center" id="PlanYourRide"><b style="font-size: xxx-large; font-family: Oswald">Plan Your Ride</b></p>
+    <div style="font-family: Oswald; padding-left: 2.5%">
+        <label for="loc">Current Location:</label>
+        <select id="loc" name="currentlocation" style="width: 200px">
+            {% for station in stations %}
+            <option value="{{station}}" SELECTED>{{station}}</option>
+            {% endfor %}
+        </select>
+        <label for="dest" style="padding-left: 20px">Destination:</label>
+        <select id="dest" name="destination" style="width: 200px">
+            {% for station in stations %}
+            <option value="{{station}}" SELECTED>{{station}}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <br>
+    <div>
+        <div id="road_map" style="height: 100%; width: 49%; padding-left: 2.5%; display: inline-block">
+            <iframe src="about:blank"
+                    style="width:100%;height:350px;left:0;top:0;border:none !important;"
+                    data-html="%3C%21DOCTYPE%20html%3E%0A%3Chead%3E%20%20%20%20%0A%20%20%20%20%3Cmeta%20http-equiv%3D%22content-type%22%20content%3D%22text/html%3B%20charset%3DUTF-8%22%20/%3E%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%3Cscript%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20L_NO_TOUCH%20%3D%20false%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20L_DISABLE_3D%20%3D%20false%3B%0A%20%20%20%20%20%20%20%20%3C/script%3E%0A%20%20%20%20%0A%20%20%20%20%3Cstyle%3Ehtml%2C%20body%20%7Bwidth%3A%20100%25%3Bheight%3A%20100%25%3Bmargin%3A%200%3Bpadding%3A%200%3B%7D%3C/style%3E%0A%20%20%20%20%3Cstyle%3E%23map%20%7Bposition%3Aabsolute%3Btop%3A0%3Bbottom%3A0%3Bright%3A0%3Bleft%3A0%3B%7D%3C/style%3E%0A%20%20%20%20%3Cscript%20src%3D%22https%3A//cdn.jsdelivr.net/npm/leaflet%401.6.0/dist/leaflet.js%22%3E%3C/script%3E%0A%20%20%20%20%3Cscript%20src%3D%22https%3A//code.jquery.com/jquery-1.12.4.min.js%22%3E%3C/script%3E%0A%20%20%20%20%3Cscript%20src%3D%22https%3A//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js%22%3E%3C/script%3E%0A%20%20%20%20%3Cscript%20src%3D%22https%3A//cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js%22%3E%3C/script%3E%0A%20%20%20%20%3Clink%20rel%3D%22stylesheet%22%20href%3D%22https%3A//cdn.jsdelivr.net/npm/leaflet%401.6.0/dist/leaflet.css%22/%3E%0A%20%20%20%20%3Clink%20rel%3D%22stylesheet%22%20href%3D%22https%3A//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css%22/%3E%0A%20%20%20%20%3Clink%20rel%3D%22stylesheet%22%20href%3D%22https%3A//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css%22/%3E%0A%20%20%20%20%3Clink%20rel%3D%22stylesheet%22%20href%3D%22https%3A//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css%22/%3E%0A%20%20%20%20%3Clink%20rel%3D%22stylesheet%22%20href%3D%22https%3A//cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css%22/%3E%0A%20%20%20%20%3Clink%20rel%3D%22stylesheet%22%20href%3D%22https%3A//cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css%22/%3E%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cmeta%20name%3D%22viewport%22%20content%3D%22width%3Ddevice-width%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20initial-scale%3D1.0%2C%20maximum-scale%3D1.0%2C%20user-scalable%3Dno%22%20/%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cstyle%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%23map_ba70682309a24c95b2ca1427bb123c07%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20position%3A%20relative%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20width%3A%20100.0%25%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20height%3A%20100.0%25%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20left%3A%200.0%25%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20top%3A%200.0%25%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%3C/style%3E%0A%20%20%20%20%20%20%20%20%0A%3C/head%3E%0A%3Cbody%3E%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22folium-map%22%20id%3D%22map_ba70682309a24c95b2ca1427bb123c07%22%20%3E%3C/div%3E%0A%20%20%20%20%20%20%20%20%0A%3C/body%3E%0A%3Cscript%3E%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20map_ba70682309a24c95b2ca1427bb123c07%20%3D%20L.map%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%22map_ba70682309a24c95b2ca1427bb123c07%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20center%3A%20%5B53.346392%2C%20-6.270854%5D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20crs%3A%20L.CRS.EPSG3857%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20zoom%3A%209%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20zoomControl%3A%20true%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20preferCanvas%3A%20false%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29%3B%0A%0A%20%20%20%20%20%20%20%20%20%20%20%20%0A%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20tile_layer_b9cb4ae75640483582c94be05310b619%20%3D%20L.tileLayer%28%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%22https%3A//%7Bs%7D.tile.openstreetmap.org/%7Bz%7D/%7Bx%7D/%7By%7D.png%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%22attribution%22%3A%20%22Data%20by%20%5Cu0026copy%3B%20%5Cu003ca%20href%3D%5C%22http%3A//openstreetmap.org%5C%22%5Cu003eOpenStreetMap%5Cu003c/a%5Cu003e%2C%20under%20%5Cu003ca%20href%3D%5C%22http%3A//www.openstreetmap.org/copyright%5C%22%5Cu003eODbL%5Cu003c/a%5Cu003e.%22%2C%20%22detectRetina%22%3A%20false%2C%20%22maxNativeZoom%22%3A%2018%2C%20%22maxZoom%22%3A%2018%2C%20%22minZoom%22%3A%200%2C%20%22noWrap%22%3A%20false%2C%20%22opacity%22%3A%201%2C%20%22subdomains%22%3A%20%22abc%22%2C%20%22tms%22%3A%20false%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%29.addTo%28map_ba70682309a24c95b2ca1427bb123c07%29%3B%0A%20%20%20%20%20%20%20%20%0A%3C/script%3E"
+                    onload="this.contentDocument.open();this.contentDocument.write(    decodeURIComponent(this.getAttribute('data-html')));this.contentDocument.close();"
+                    allowfullscreen="" webkitallowfullscreen="" mozallowfullscreen=""></iframe>
+        </div>
+        <div id="station_roads" style="height: 100%; width: 49%; padding-right: 2.5%; float: right">
+            <table class="w3-card-4 w3-hoverable w3-border w3-bordered w3-table" style="top: auto">
+                <thead>
+                <tr>
+                    <th class="w3-center">Route</th>
+                    <th class="w3-center">Predicted Delay</th>
+                </tr>
+                </thead>
+                <tbody id="road_table">
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <p class="w3-center" id="UploadData"><b style="font-size: xxx-large; font-family: Oswald">Upload Data</b></p>
+    <div style="top: 0px">
+        <form class="upload-form" name="upload" method="post" action="{{ url_for('upload_file') }}"
+              enctype="multipart/form-data">
+            <input type="file" id="Stream" name="files" onchange="document.forms.upload.submit()" hidden/>
+            <label for="Stream"
+                   class="w3-button w3-gray w3-padding-large w3-large w3-opacity w3-hover-opacity-off"
+                   style="left: 30%; position: relative; font-family: Oswald">Stream
+                File</label>
+            <input type="file" id="Batch" name="fileb" onchange="document.forms.upload.submit()" hidden/>
+            <label for="Batch"
+                   class="w3-button w3-gray w3-padding-large w3-large w3-opacity w3-hover-opacity-off"
+                   style="right: 30%; position: absolute; font-family: Oswald">Batch
+                File</label>
+        </form>
+    </div>
+    <br><br>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for category, message in messages %}
+    <script>
+        alert(message);
+    </script>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+    <!-- END w3-content -->
+</div>
+
+
+<!-- Footer -->
+<footer class="w3-container w3-dark-grey" style="padding:32px">
+    <a href="#" class="w3-button w3-black w3-padding-large w3-margin-bottom"><i
+            class="fa fa-arrow-up w3-margin-right"></i>To the top</a>
+    <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
+</footer>
+
+
+<script>
+    // Open and close sidebar
+    function openNav() {
+        document.getElementById("mySidebar").style.width = "20%";
+        document.getElementById("mySidebar").style.display = "block";
+    }
+
+    function closeNav() {
+        document.getElementById("mySidebar").style.display = "none";
+    }
+
+    $(document).ready(function () {
+        $('#loc').change(function () {
+            var curr_loc = $('#loc option:selected').val();
+            var dest = $('#dest option:selected').val();
+            $.ajax({
+                url: '/map',
+                type: 'get',
+                data: {
+                    current_location: curr_loc,
+                    destination: dest
+                },
+                success: function (response) {
+                    $('#road_map').html(response.map);
+                    $('#road_table').html(response.table);
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            })
+        });
+        $('#dest').change(function () {
+            var curr_loc = $('#loc option:selected').val();
+            var dest = $('#dest option:selected').val();
+            $.ajax({
+                url: '/map',
+                type: 'get',
+                data: {
+                    current_location: curr_loc,
+                    destination: dest
+                },
+                success: function (response) {
+                    $('#road_map').html(response.map);
+                    $('#road_table').html(response.table);
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            })
+        });
+    });
+</script>
+
+</body>
+</html>
