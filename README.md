@@ -6,7 +6,7 @@
 </p>
 
 ## Overview
-
+The app provides the city of Dublin a tool to assess the quality of ML models that predict the delay of a bus to its destination (the upcoming station). We use the delay as a proxy for the actual arrival time of the buses. Moreover, the tool can be used to provide routes between a source station and destination station, which is useful both for civilians and the city, which can use it as an route IR system.
 
 ## Technologies
 
@@ -35,10 +35,24 @@
 ## Usage
 
 ### Delay predictions assesmnet
+A kibana dashboard depicting the average delay predicted by our model and comparing it to the real average delay in different regions of Dublin. It is possible to filter the following parameters:
+* Time interval of the data. (using the kibana interface)
+* Bus station ID. (Bus station filter)
+* Bus Line ID. (Bus line filter)
 
 ### Route planning
+Use this section in order to find shortest routes (both in distance and in number of lines) from source station to destination station. Choose source and destination, see their location on the Dublin map and see direct route (if exists) and shortest routes in L1 distance. Moreover, you will see the predicted delay of the line, based on a random initializtion of parameters and using a trained linear regression model.
+
+<p align='center'>
+ <img src=https://user-images.githubusercontent.com/74211354/105734001-d454c800-5f3a-11eb-8750-1021996d0039.png width=75% height=75% alt='Upload Data' href=''></img>
+<p>
 
 ### Uploading Data
+Can be found on the sidebar under 'Upload Data'. Use the buttons to upload stream/batch data to the databricks enviroment and Elasticsearch cluster.
 <p align='center'>
  <img src=https://user-images.githubusercontent.com/74211354/105732945-ad49c680-5f39-11eb-966d-cd0efa322c93.png width=50% height=50% alt='Upload Data' href=''></img>
 <p>
+ 
+**Note!** the following schema will be enforced.
+
+``` ['_id', 'delay', 'congestion', 'lineId', 'vehicleId', 'timestamp', 'areaId', 'areaId1', 'areaId2','areaId3', 'gridID', 'actualDelay', 'longitude', 'latitude', 'currentHour', 'dateTypeEnum', 'angle','ellapsedTime', 'vehicleSpeed', 'distanceCovered', 'journeyPatternId', 'direction', 'busStop','poiId', 'poiId2', 'systemTimestamp', 'calendar', 'filteredActualDelay', 'atStop', 'dateType', 'justStopped', 'justLeftStop', 'probability', 'anomaly', 'loc'] ```
