@@ -1,6 +1,5 @@
-from flask import Flask, render_template, send_from_directory, jsonify
+from flask import Flask, render_template, send_from_directory, jsonify, send_from_directory, request, redirect, flash, url_for
 import os
-from flask import send_from_directory, request, redirect, flash, url_for
 from uuid import uuid1
 import json
 from base64 import b64encode, b64decode, standard_b64encode
@@ -26,7 +25,7 @@ ALLOWED_SCHEMA = ['_id', 'delay', 'congestion', 'lineId', 'vehicleId', 'timestam
                   'justStopped', 'justLeftStop', 'probability', 'anomaly', 'loc']
 
 
-stations = pd.read_csv("NTA_Public_Transport.csv")
+stations = pd.read_csv("../../data/NTA_Public_Transport.csv")
 station_ids = {}
 station_graph: nx.Graph = None
 
@@ -38,7 +37,7 @@ def cows():
 
 @app.route('/home')
 def index():
-    stations = pd.read_csv("NTA_Public_Transport.csv")
+    stations = pd.read_csv("../../data/NTA_Public_Transport.csv")
     station_list = list(stations['stop_name'])
     return render_template('index.html', stations=station_list)
 
@@ -126,7 +125,7 @@ def create_map():
 
 def make_station_graph():
     global station_graph
-    station_routes = pd.read_csv('NTA_Public_Transport_Routes.csv',
+    station_routes = pd.read_csv('../../data/NTA_Public_Transport_Routes.csv',
                                  dtype={'Stop 1 Code': int, 'Stop 2 Code': int, 'Stop 1 Name': str,
                                         'Stop 2 Name': str, 'Distance': float})
     station_graph = nx.from_pandas_edgelist(station_routes, source='Stop 1 Code', target='Stop 2 Code',
